@@ -71,9 +71,4 @@ public class Role implements GrantedAuthority, Serializable {
     public int hashCode() {
         return Objects.hash(id, name);
     }
-
-    public String getNoPrefix() {
-        String pr = "ROLE_";
-        return name.substring(pr.length());
-    }
 }
