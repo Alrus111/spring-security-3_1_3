@@ -18,13 +18,11 @@
     <input type="password" th:field="*{password}" id="password"/>
     <br/>
 
-	<label>Role:
-		<input type="checkbox" name="roleList"
-		       th:each="role : ${roles}"
-		       th:text="${role.getNoPrefix()}"
-		       th:value="${role.id}"
-		       th:field="*{roles}"/>
-	</label>
+	<select multiple name="nameRole" id="nameRole">
+		<option>ROLE_USER</option>
+		<option>ROLE_ADMIN</option>
+	</select>
+	<br/>
 	<input type="submit" value="Update"/>
 </form>
 <a th:href="@{/admin}">Go back</a>

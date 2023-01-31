@@ -40,6 +40,7 @@ public class AdminsController {
     @PostMapping("/createNew")
     public String createUser(@ModelAttribute("user") User user,
                              @RequestParam(value = "nameRole") String nameRole) {
+
         Role role = new Role(nameRole);
         roleService.saveRole(role);
         user.setRoles(Set.of(role));
@@ -55,9 +56,13 @@ public class AdminsController {
     }
 
     @PatchMapping(value = "/{id}")
-    public String updateUser(@ModelAttribute("user") User user, @PathVariable("id") Long id) {
+    public String updateUser(@ModelAttribute("user") User user, @RequestParam(value = "nameRole") String nameRole) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+
+        Role role = new Role(nameRole);
+        roleService.saveRole(role);
+        user.setRoles(Set.of(role));
         userService.updateUser(user);
         return "redirect:/admin";
     }
