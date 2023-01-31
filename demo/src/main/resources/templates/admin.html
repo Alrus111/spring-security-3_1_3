@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin</title>
+</head>
+<body>
+
+<div>
+    <table border="1">
+        <caption>
+            <h1>Users</h1>
+        </caption>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Lastname</th>
+            <th>Username</th>
+            <th>Password</th>
+            <th>Role</th>
+            <th>Actions</th>
+        </tr>
+
+        <tr th:each="user :${users}">
+            <td th:utext="${user.getId()}">value</td>
+            <td th:utext="${user.getName()}">value</td>
+            <td th:utext="${user.getLastname()}">value</td>
+            <td th:utext="${user.getUsername()}">value</td>
+            <td th:utext="${user.getPassword()}">value</td>
+            <td>
+                <div th:each="role:${user.getRoles()}">[[${role.getName()}]]</div>
+            </td>
+            <td>
+                <a th:href="@{/admin/{id}/edit(id=${user.getId()})}">
+                    <input type="submit" value="Edit user"/>
+                </a>
+                <form th:method="DELETE" th:action="@{/admin/{id}/delete(id=${user.getId()})}">
+                    <input type="submit" value="Delete user"/>
+                </form>
+            </td>
+        </tr>
+    </table>
+    <br/>
+    <a href="/admin/new">Create user</a>
+    <br/>
+    <a href="/logout">Logout</a>
+</div>
+<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+</body>
+</html>
