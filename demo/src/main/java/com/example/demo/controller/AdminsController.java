@@ -18,11 +18,13 @@ public class AdminsController {
 
     private final UserService userService;
     private final RoleService roleService;
+    private final BCryptPasswordEncoder passwordEncoder;
 
     @Autowired
-    public AdminsController(UserService userService, RoleService roleService) {
+    public AdminsController(UserService userService, RoleService roleService, BCryptPasswordEncoder passwordEncoder) {
         this.userService = userService;
         this.roleService = roleService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping()
@@ -57,7 +59,6 @@ public class AdminsController {
 
     @PatchMapping(value = "/{id}")
     public String updateUser(@ModelAttribute("user") User user, @RequestParam(value = "nameRole") String nameRole) {
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         Role role = new Role(nameRole);

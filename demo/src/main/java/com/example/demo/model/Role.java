@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "role")
 public class Role implements GrantedAuthority, Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
