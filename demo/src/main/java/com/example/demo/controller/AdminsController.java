@@ -20,7 +20,6 @@ public class AdminsController {
     private final RoleService roleService;
     private final BCryptPasswordEncoder passwordEncoder;
 
-    @Autowired
     public AdminsController(UserService userService, RoleService roleService, BCryptPasswordEncoder passwordEncoder) {
         this.userService = userService;
         this.roleService = roleService;
@@ -59,7 +58,6 @@ public class AdminsController {
 
     @PatchMapping(value = "/{id}")
     public String updateUser(@ModelAttribute("user") User user, @RequestParam(value = "nameRole") String nameRole) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         Role role = new Role(nameRole);
         roleService.saveRole(role);
